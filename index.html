@@ -1,1 +1,1006 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --neon-pink: #FF2D78;
+    --neon-blue: #00D4FF;
+    --neon-purple: #A855F7;
+    --electric: #7C3AED;
+    --dark-bg: #050510;
+    --dark-surface: #0D0D20;
+    --dark-card: #111128;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0C0;
+    --text-muted: #606080;
+    --border: rgba(168,85,247,0.2);
+    --glow-pink: rgba(255,45,120,0.15);
+    --glow-blue: rgba(0,212,255,0.12);
+    --glow-purple: rgba(168,85,247,0.15);
+  }
+
+  body {
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+    background: rgba(5,5,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 800;
+    background: linear-gradient(135deg, #FF2D78, #A855F7, #00D4FF);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-cta {
+    background: linear-gradient(135deg, #FF2D78, #A855F7);
+    color: #fff; border: none; padding: 10px 22px;
+    border-radius: 50px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* SECTIONS */
+  section { padding: 80px 32px; max-width: 1100px; margin: 0 auto; }
+
+  /* HERO */
+  .hero {
+    text-align: center; padding: 100px 32px 60px;
+    position: relative; overflow: hidden; max-width: 100%;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 50% at 50% 20%, rgba(168,85,247,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 30% at 20% 60%, rgba(255,45,120,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 30% at 80% 70%, rgba(0,212,255,0.08) 0%, transparent 60%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.3);
+    padding: 6px 16px; border-radius: 50px; font-size: 12px;
+    color: #C084FC; margin-bottom: 28px; letter-spacing: 0.5px;
+  }
+  .hero-badge span { font-size: 8px; background: #A855F7; border-radius: 50%; width: 6px; height: 6px; display: block; }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(38px, 6vw, 72px); font-weight: 800;
+    line-height: 1.05; letter-spacing: -2px; margin-bottom: 20px;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #FF2D78 0%, #A855F7 50%, #00D4FF 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 18px; color: var(--text-secondary); max-width: 560px;
+    margin: 0 auto 40px; font-weight: 400; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, #FF2D78, #A855F7);
+    color: #fff; border: none; padding: 15px 34px;
+    border-radius: 50px; font-size: 16px; font-weight: 600;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(168,85,247,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(168,85,247,0.5); }
+  .btn-secondary {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,0.2); padding: 15px 34px;
+    border-radius: 50px; font-size: 16px; font-weight: 500;
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(168,85,247,0.5); background: rgba(168,85,247,0.05); }
+
+  /* DEMO VIDEO PLAYER */
+  .demo-player {
+    margin: 60px auto 0; max-width: 800px;
+    background: var(--dark-card); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden; position: relative;
+  }
+  .player-bar {
+    background: var(--dark-surface); padding: 12px 20px;
+    display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-red { background: #FF5F57; }
+  .dot-yellow { background: #FEBC2E; }
+  .dot-green { background: #28C840; }
+  .player-title { margin-left: 8px; font-size: 13px; color: var(--text-muted); }
+  .player-content {
+    aspect-ratio: 16/9; background: linear-gradient(135deg, #0a0018 0%, #050510 50%, #000d1a 100%);
+    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+  }
+  .player-grid {
+    position: absolute; inset: 0; opacity: 0.05;
+    background-image: linear-gradient(#A855F7 1px, transparent 1px), linear-gradient(90deg, #A855F7 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .video-demo-content {
+    display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; z-index: 1;
+    padding: 40px;
+  }
+  .ai-generating {
+    font-size: 13px; color: var(--text-muted); letter-spacing: 1px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pulse-dot {
+    width: 8px; height: 8px; background: #FF2D78; border-radius: 50%;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+  .progress-bar-wrap {
+    width: 320px; height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px;
+  }
+  .progress-bar-fill {
+    height: 100%; border-radius: 2px; width: 0%;
+    background: linear-gradient(90deg, #FF2D78, #A855F7, #00D4FF);
+    transition: width 0.3s ease;
+  }
+  .preview-frames {
+    display: flex; gap: 8px; margin-top: 10px;
+  }
+  .frame {
+    width: 80px; height: 50px; border-radius: 8px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; font-size: 10px;
+    color: var(--text-muted); opacity: 0.4; transition: opacity 0.5s;
+    background: var(--dark-surface);
+  }
+  .frame.active { opacity: 1; border-color: #A855F7; }
+
+  /* STATS */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    margin: 60px auto; max-width: 900px;
+  }
+  .stat-item {
+    background: var(--dark-card); padding: 28px 24px; text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800;
+    background: linear-gradient(135deg, #FF2D78, #A855F7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+  /* FEATURES */
+  .section-label {
+    font-size: 12px; letter-spacing: 2px; color: #A855F7; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; line-height: 1.15;
+  }
+  .section-sub { color: var(--text-secondary); font-size: 16px; max-width: 520px; line-height: 1.7; }
+
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 48px;
+  }
+  .feature-card {
+    background: var(--dark-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; position: relative; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .feature-card:hover { border-color: rgba(168,85,247,0.4); transform: translateY(-3px); }
+  .feature-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(168,85,247,0.5), transparent);
+  }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 12px; margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .fi-pink { background: rgba(255,45,120,0.15); }
+  .fi-purple { background: rgba(168,85,247,0.15); }
+  .fi-blue { background: rgba(0,212,255,0.12); }
+  .feature-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .feature-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .feature-tag {
+    display: inline-block; margin-top: 12px; padding: 3px 10px;
+    border-radius: 50px; font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+    background: rgba(168,85,247,0.12); color: #C084FC; border: 1px solid rgba(168,85,247,0.2);
+  }
+
+  /* AI STUDIO */
+  .studio-wrap {
+    background: var(--dark-card); border: 1px solid var(--border);
+    border-radius: 24px; overflow: hidden; margin-top: 48px;
+  }
+  .studio-header {
+    background: var(--dark-surface); padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+  .studio-title { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .live-badge {
+    background: rgba(255,45,120,0.15); color: #FF2D78;
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 50px;
+    border: 1px solid rgba(255,45,120,0.2); display: flex; align-items: center; gap: 5px;
+  }
+  .live-dot { width: 5px; height: 5px; background: #FF2D78; border-radius: 50%; animation: pulse 1s infinite; }
+  .studio-body { display: grid; grid-template-columns: 1fr 340px; min-height: 460px; }
+  .studio-left { padding: 28px; border-right: 1px solid var(--border); }
+  .studio-right { padding: 28px; }
+  .prompt-label { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.5px; }
+  .prompt-area {
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 12px; color: #fff; font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px; padding: 14px 16px; resize: none; outline: none; line-height: 1.6;
+    transition: border-color 0.2s;
+  }
+  .prompt-area:focus { border-color: rgba(168,85,247,0.5); }
+  .style-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px;
+  }
+  .style-chip {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px; text-align: center; font-size: 11px;
+    color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
+  }
+  .style-chip:hover, .style-chip.active {
+    border-color: #A855F7; background: rgba(168,85,247,0.1); color: #C084FC;
+  }
+  .style-chip .style-icon { font-size: 16px; margin-bottom: 4px; display: block; }
+  .settings-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .settings-label { font-size: 13px; color: var(--text-secondary); }
+  .settings-val { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .slider-input {
+    width: 100%; -webkit-appearance: none; height: 3px; border-radius: 2px; outline: none;
+    background: rgba(255,255,255,0.1); margin: 8px 0 16px;
+    cursor: pointer;
+  }
+  .slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+    background: linear-gradient(135deg, #FF2D78, #A855F7); cursor: pointer;
+  }
+  .generate-btn {
+    width: 100%; background: linear-gradient(135deg, #FF2D78, #A855F7);
+    color: #fff; border: none; padding: 14px; border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: opacity 0.2s, transform 0.2s; margin-top: 8px;
+  }
+  .generate-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .generate-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .output-screen {
+    aspect-ratio: 9/16; background: var(--dark-bg); border: 1px solid var(--border);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; margin-bottom: 12px;
+    max-height: 280px;
+  }
+  .output-placeholder { text-align: center; color: var(--text-muted); font-size: 13px; }
+  .output-generating {
+    display: none; flex-direction: column; align-items: center; gap: 12px; width: 80%;
+  }
+  .gen-text { font-size: 12px; color: var(--text-muted); }
+  .output-preview { display: none; width: 100%; height: 100%; position: relative; }
+  .video-mock {
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end; padding: 16px;
+    background: linear-gradient(180deg, #0a0018 0%, #1a0030 40%, #0d0020 100%);
+  }
+  .video-caption {
+    background: rgba(0,0,0,0.7); padding: 6px 12px; border-radius: 6px;
+    font-size: 11px; color: #fff; text-align: center; margin-bottom: 8px;
+    max-width: 90%;
+  }
+  .video-caption span { color: #FF2D78; font-weight: 700; }
+  .video-tags { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+  .vtag { background: rgba(168,85,247,0.3); color: #C084FC; font-size: 10px; padding: 2px 8px; border-radius: 4px; }
+  .action-row { display: flex; gap: 8px; }
+  .action-btn {
+    flex: 1; background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+    color: #fff; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: background 0.2s; font-family: 'Space Grotesk', sans-serif;
+  }
+  .action-btn:hover { background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.3); }
+  .action-btn.primary-action {
+    background: rgba(255,45,120,0.15); border-color: rgba(255,45,120,0.3); color: #FF2D78;
+  }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin-top: 48px;
+  }
+  .price-card {
+    background: var(--dark-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px 22px; position: relative;
+    transition: transform 0.2s;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-card.popular {
+    border-color: rgba(168,85,247,0.5);
+    background: linear-gradient(180deg, rgba(168,85,247,0.07) 0%, var(--dark-card) 60%);
+  }
+  .popular-badge {
+    position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, #FF2D78, #A855F7);
+    color: #fff; font-size: 11px; font-weight: 700; padding: 4px 16px;
+    border-radius: 0 0 10px 10px; white-space: nowrap; letter-spacing: 0.3px;
+  }
+  .plan-name { font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; }
+  .plan-price {
+    font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .plan-price span { font-size: 18px; color: var(--text-muted); }
+  .plan-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .plan-features { list-style: none; }
+  .plan-features li {
+    font-size: 13px; color: var(--text-secondary); padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .plan-features li::before { content: '✓'; color: #A855F7; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .plan-btn {
+    width: 100%; margin-top: 22px; padding: 12px; border-radius: 12px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .plan-btn-outline {
+    background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #fff;
+  }
+  .plan-btn-outline:hover { border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.05); }
+  .plan-btn-filled {
+    background: linear-gradient(135deg, #FF2D78, #A855F7); border: none; color: #fff;
+    box-shadow: 0 0 20px rgba(168,85,247,0.3);
+  }
+  .plan-btn-filled:hover { box-shadow: 0 0 35px rgba(168,85,247,0.5); }
+
+  /* VIRAL */
+  .viral-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; align-items: center; }
+  .viral-card {
+    background: var(--dark-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; display: flex; align-items: center; gap: 16px;
+    margin-bottom: 12px; transition: border-color 0.2s;
+  }
+  .viral-card:hover { border-color: rgba(255,45,120,0.3); }
+  .viral-icon {
+    width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    background: rgba(255,45,120,0.1);
+  }
+  .viral-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .viral-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* CTA */
+  .cta-section {
+    text-align: center; padding: 80px 32px;
+    background: linear-gradient(180deg, transparent 0%, rgba(168,85,247,0.06) 50%, transparent 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif; font-size: clamp(30px, 5vw, 56px);
+    font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px;
+  }
+  .cta-section p { font-size: 17px; color: var(--text-secondary); margin-bottom: 36px; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px; text-align: center;
+    color: var(--text-muted); font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 8px;
+    background: linear-gradient(135deg, #FF2D78, #A855F7, #00D4FF);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 12px 16px; }
+    .nav-links { display: none; }
+    section { padding: 60px 16px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .studio-body { grid-template-columns: 1fr; }
+    .studio-right { border-top: 1px solid var(--border); }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .viral-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 34px; letter-spacing: -1px; }
+  }
+
+  /* TAB NAV */
+  .tab-nav { display: flex; gap: 4px; background: rgba(255,255,255,0.04); border-radius: 10px; padding: 4px; margin-bottom: 16px; }
+  .tab-btn {
+    flex: 1; padding: 8px 12px; background: transparent; border: none;
+    color: var(--text-secondary); font-size: 13px; font-weight: 500;
+    border-radius: 7px; cursor: pointer; transition: all 0.2s;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .tab-btn.active { background: rgba(168,85,247,0.2); color: #C084FC; }
+
+  .credits-display {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2);
+    border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px;
+  }
+  .credits-num { color: #C084FC; font-weight: 700; }
+
+  .virality-bar {
+    height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; margin-top: 4px; overflow: hidden;
+  }
+  .virality-fill {
+    height: 100%; border-radius: 3px; width: 0%;
+    background: linear-gradient(90deg, #FF2D78, #FEBC2E);
+    transition: width 1s ease;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">FluxReel</div>
+  <div class="nav-links">
+    <a onclick="scrollTo('#features')">Features</a>
+    <a onclick="scrollTo('#studio')">Studio</a>
+    <a onclick="scrollTo('#pricing')">Pricing</a>
+    <a onclick="scrollTo('#viral')">Growth</a>
+  </div>
+  <button class="nav-cta" onclick="scrollTo('#studio')">Start Free ⚡</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><span></span> The #1 AI Video Platform for Creators in 2026</div>
+  <h1>Turn any idea into<br><span class="gradient-text">viral 60s videos</span><br>in seconds</h1>
+  <p>Text to video. Image to video. AI voices, synced audio, trending styles. Everything you need to blow up on TikTok, Reels & Shorts — no editing skills required.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="scrollTo('#studio')">Generate Your First Video Free</button>
+    <button class="btn-secondary" onclick="scrollTo('#features')">See All Features</button>
+  </div>
+  
+  <!-- Demo Player -->
+  <div class="demo-player" style="margin-top:50px">
+    <div class="player-bar">
+      <div class="dot dot-red"></div>
+      <div class="dot dot-yellow"></div>
+      <div class="dot dot-green"></div>
+      <span class="player-title">FluxReel Studio — Live Demo</span>
+    </div>
+    <div class="player-content">
+      <div class="player-grid"></div>
+      <div class="video-demo-content">
+        <div class="ai-generating">
+          <div class="pulse-dot"></div>
+          AI generating: "Cyberpunk city at night, neon rain, cinematic slow motion"
+        </div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="heroProgress"></div></div>
+        <div class="preview-frames">
+          <div class="frame" id="f1">Frame 1</div>
+          <div class="frame" id="f2">Frame 2</div>
+          <div class="frame" id="f3">Frame 3</div>
+          <div class="frame" id="f4">Frame 4</div>
+          <div class="frame" id="f5">Frame 5</div>
+        </div>
+        <div style="color:var(--text-muted);font-size:12px;margin-top:8px">0:00 / 0:60 • 4K • Cyberpunk Style</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div style="padding:0 32px">
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">2.4M+</div><div class="stat-label">Videos generated</div></div>
+  <div class="stat-item"><div class="stat-num">340K+</div><div class="stat-label">Active creators</div></div>
+  <div class="stat-item"><div class="stat-num">60s</div><div class="stat-label">Max video length</div></div>
+  <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">AI styles available</div></div>
+</div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">What You Get</div>
+  <div class="section-title">Everything to go <span class="gradient-text">viral</span></div>
+  <div class="section-sub">12+ AI-powered tools built specifically for short-form creators who want results fast, not film school.</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon fi-pink">🎬</div>
+      <h3>Instant Text-to-Video</h3>
+      <p>Type your idea, get a stunning 60-second clip. Supports text, image, and video-to-video input with 30+ styles.</p>
+      <div class="feature-tag">Core Feature</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-purple">🎙️</div>
+      <h3>60+ AI Voices + Clone</h3>
+      <p>Ultra-realistic voices with emotion control in 40 languages. Clone your own voice for authentic brand content.</p>
+      <div class="feature-tag">2026 Exclusive</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-blue">🔥</div>
+      <h3>Virality Score Predictor</h3>
+      <p>AI rates your hook, pacing & retention potential before you post. Know your viral chances instantly.</p>
+      <div class="feature-tag">AI-Powered</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-pink">📅</div>
+      <h3>Auto-Scheduler</h3>
+      <p>One-click post to TikTok, Instagram, YouTube & LinkedIn with AI-generated captions and trending hashtags.</p>
+      <div class="feature-tag">Save Hours</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-purple">🧑‍🎭</div>
+      <h3>Persistent AI Avatars</h3>
+      <p>Create a digital human that stays consistent across all your videos — same face, wardrobe, and personality.</p>
+      <div class="feature-tag">New in 2026</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-blue">📈</div>
+      <h3>Trend Scanner</h3>
+      <p>Pulls hot sounds, topics & formats from TikTok/Reels in real-time. Ride the wave before it peaks.</p>
+      <div class="feature-tag">Live Data</div>
+    </div>
+  </div>
+</section>
+
+<!-- AI STUDIO (INTERACTIVE) -->
+<section id="studio" style="max-width:1100px">
+  <div class="section-label">Try It Now</div>
+  <div class="section-title">Your <span class="gradient-text">AI Studio</span></div>
+  <div class="section-sub">Generate a real AI video concept right here. Powered by Claude AI.</div>
+
+  <div class="studio-wrap">
+    <div class="studio-header">
+      <div class="studio-title">🎬 FluxReel Studio <span style="color:var(--text-muted);font-weight:400;font-size:12px">— Beta</span></div>
+      <div class="live-badge"><div class="live-dot"></div> AI LIVE</div>
+    </div>
+    <div class="studio-body">
+      <div class="studio-left">
+        <div class="credits-display">
+          <span>⚡ Free Credits</span>
+          <span class="credits-num" id="creditsLeft">50 credits remaining</span>
+        </div>
+
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="setTab(this,'text')">✏️ Text Prompt</button>
+          <button class="tab-btn" onclick="setTab(this,'hook')">🪝 Hook Gen</button>
+          <button class="tab-btn" onclick="setTab(this,'style')">🎨 Styles</button>
+        </div>
+
+        <div id="tab-text">
+          <div class="prompt-label">DESCRIBE YOUR VIDEO</div>
+          <textarea class="prompt-area" id="promptInput" rows="4" placeholder="e.g. Cinematic close-up of coffee being poured in slow motion, warm morning light, cozy café vibe, perfect for lifestyle brand..."></textarea>
+          
+          <div style="margin-top:16px">
+            <div class="prompt-label">QUICK STYLES</div>
+            <div class="style-grid">
+              <div class="style-chip active" onclick="selectStyle(this)"><span class="style-icon">🌆</span>Cinematic</div>
+              <div class="style-chip" onclick="selectStyle(this)"><span class="style-icon">🤖</span>Cyberpunk</div>
+              <div class="style-chip" onclick="selectStyle(this)"><span class="style-icon">✨</span>Anime</div>
+              <div class="style-chip" onclick="selectStyle(this)"><span class="style-icon">📺</span>VHS Retro</div>
+              <div class="style-chip" onclick="selectStyle(this)"><span class="style-icon">🎮</span>3D Pixar</div>
+              <div class="style-chip" onclick="selectStyle(this)"><span class="style-icon">🖌️</span>Claymation</div>
+              <div class="style-chip" onclick="selectStyle(this)"><span class="style-icon">👾</span>Glitch Art</div>
+              <div class="style-chip" onclick="selectStyle(this)"><span class="style-icon">🌿</span>Nature Doc</div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px">
+            <div class="settings-row">
+              <span class="settings-label">Duration</span>
+              <span class="settings-val" id="durationVal">30s</span>
+            </div>
+            <input type="range" class="slider-input" min="5" max="60" value="30" step="5" oninput="document.getElementById('durationVal').textContent=this.value+'s'">
+            <div class="settings-row">
+              <span class="settings-label">Quality</span>
+              <span class="settings-val" id="qualityVal">1080p</span>
+            </div>
+            <input type="range" class="slider-input" min="1" max="3" value="2" step="1" oninput="document.getElementById('qualityVal').textContent=['720p','1080p','4K'][this.value-1]">
+          </div>
+        </div>
+
+        <div id="tab-hook" style="display:none">
+          <div class="prompt-label">YOUR TOPIC OR NICHE</div>
+          <textarea class="prompt-area" id="hookInput" rows="3" placeholder="e.g. fitness tips for busy moms, dropshipping 2026, AI side hustle ideas..."></textarea>
+          <div style="margin-top:12px;font-size:12px;color:var(--text-muted);line-height:1.6">
+            The AI will generate a viral hook + full script using proven formats: Problem-Agitate-Solve, Listicle, Story, Shocking Stat, and more.
+          </div>
+        </div>
+
+        <div id="tab-style" style="display:none">
+          <div class="prompt-label">PLATFORM PRESET</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+            <div class="style-chip active" onclick="selectStyle(this)">📱 TikTok 9:16</div>
+            <div class="style-chip" onclick="selectStyle(this)">📸 Reels 9:16</div>
+            <div class="style-chip" onclick="selectStyle(this)">▶️ YouTube 16:9</div>
+            <div class="style-chip" onclick="selectStyle(this)">⬛ IG Square</div>
+          </div>
+          <div class="prompt-label">MOOD</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+            <div class="style-chip active" onclick="selectStyle(this)">🔥 Hype</div>
+            <div class="style-chip" onclick="selectStyle(this)">😌 Calm</div>
+            <div class="style-chip" onclick="selectStyle(this)">💰 Money</div>
+            <div class="style-chip" onclick="selectStyle(this)">💡 Inspire</div>
+            <div class="style-chip" onclick="selectStyle(this)">😂 Funny</div>
+            <div class="style-chip" onclick="selectStyle(this)">😱 Shock</div>
+          </div>
+        </div>
+
+        <button class="generate-btn" id="generateBtn" onclick="generateVideo()">⚡ Generate AI Video — Free</button>
+      </div>
+
+      <!-- RIGHT: OUTPUT -->
+      <div class="studio-right">
+        <div class="prompt-label">VIDEO OUTPUT</div>
+        <div class="output-screen" id="outputScreen">
+          <div class="output-placeholder" id="placeholder">
+            <div style="font-size:36px;margin-bottom:12px">🎬</div>
+            <div>Your video will appear here</div>
+            <div style="font-size:11px;margin-top:6px;color:var(--text-muted)">Avg generation: 8 seconds</div>
+          </div>
+          <div class="output-generating" id="generatingAnim">
+            <div style="font-size:28px">⚡</div>
+            <div class="gen-text" id="genStatus">Initializing AI models...</div>
+            <div class="progress-bar-wrap" style="width:200px"><div class="progress-bar-fill" id="genProgress"></div></div>
+          </div>
+          <div class="output-preview" id="outputPreview">
+            <div class="video-mock" id="videoMock">
+              <div class="video-caption" id="videoCaption">Your generated video scene</div>
+              <div class="video-tags" id="videoTags"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIRALITY SCORE -->
+        <div id="viralitySection" style="display:none;margin-bottom:12px;background:rgba(255,45,120,0.06);border:1px solid rgba(255,45,120,0.2);border-radius:10px;padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:var(--text-secondary)">🔥 Virality Score</span>
+            <span style="font-size:14px;font-weight:700;color:#FF2D78" id="viralScore">—</span>
+          </div>
+          <div class="virality-bar"><div class="virality-fill" id="viralFill"></div></div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:6px" id="viralTip"></div>
+        </div>
+
+        <!-- AI SCRIPT OUTPUT -->
+        <div id="scriptOutput" style="display:none;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;font-size:12px;color:var(--text-secondary);line-height:1.7;max-height:120px;overflow-y:auto" id="scriptText"></div>
+
+        <div class="action-row" id="actionRow" style="display:none">
+          <button class="action-btn" onclick="generateVideo()">🔄 Regenerate</button>
+          <button class="action-btn" onclick="showExport()">⬇️ Export</button>
+          <button class="action-btn primary-action" onclick="showSchedule()">📅 Post Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label">Simple Pricing</div>
+  <div class="section-title">Start free. <span class="gradient-text">Scale when you blow up.</span></div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan-name">FREE</div>
+      <div class="plan-price">$0</div>
+      <div class="plan-sub">Forever free, no credit card</div>
+      <ul class="plan-features">
+        <li>50 credits/month</li>
+        <li>Up to 15s videos</li>
+        <li>5 styles</li>
+        <li>720p export</li>
+        <li>Watermark on videos</li>
+        <li>Community gallery access</li>
+      </ul>
+      <button class="plan-btn plan-btn-outline">Get Started Free</button>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">STARTER</div>
+      <div class="plan-price">$<span></span>12<span>/mo</span></div>
+      <div class="plan-sub">Save 20% annually</div>
+      <ul class="plan-features">
+        <li>300 credits/month</li>
+        <li>Up to 30s videos</li>
+        <li>All 30+ styles</li>
+        <li>1080p export</li>
+        <li>No watermark</li>
+        <li>Voice cloning (1 voice)</li>
+      </ul>
+      <button class="plan-btn plan-btn-outline">Start Creating</button>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-badge">⭐ MOST POPULAR</div>
+      <div class="plan-name" style="margin-top:12px">CREATOR</div>
+      <div class="plan-price" style="background:linear-gradient(135deg,#FF2D78,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent">$<span></span>29<span style="-webkit-text-fill-color:var(--text-muted)">/mo</span></div>
+      <div class="plan-sub">Save 20% annually = $278/yr</div>
+      <ul class="plan-features">
+        <li>1,000 credits/month</li>
+        <li>Full 60s videos</li>
+        <li>4K export + commercial license</li>
+        <li>Virality score + AI scheduler</li>
+        <li>5 AI voice clones</li>
+        <li>Persistent avatars</li>
+        <li>Priority generation queue</li>
+      </ul>
+      <button class="plan-btn plan-btn-filled">Start Creator Plan</button>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">AGENCY</div>
+      <div class="plan-price">$<span></span>149<span>/mo</span></div>
+      <div class="plan-sub">Per seat, min 3 seats</div>
+      <ul class="plan-features">
+        <li>Unlimited credits</li>
+        <li>Team workspace + collab</li>
+        <li>White-label export</li>
+        <li>Brand kit (logo/fonts/colors)</li>
+        <li>API access</li>
+        <li>Dedicated account manager</li>
+        <li>Custom AI model fine-tuning</li>
+      </ul>
+      <button class="plan-btn plan-btn-outline">Contact Sales</button>
+    </div>
+  </div>
+</section>
+
+<!-- VIRAL ENGINE -->
+<section id="viral">
+  <div class="viral-grid">
+    <div>
+      <div class="section-label">Built-In Growth Engine</div>
+      <div class="section-title">Designed to <span class="gradient-text">go viral</span></div>
+      <div class="section-sub">FluxReel isn't just a generator — it's your unfair advantage. Every feature is engineered to maximize reach, engagement, and following growth.</div>
+      <div style="margin-top:24px">
+        <button class="btn-primary" onclick="scrollTo('#studio')">Try It Free Today</button>
+      </div>
+    </div>
+    <div>
+      <div class="viral-card">
+        <div class="viral-icon">📊</div>
+        <div><h4>Virality Score Predictor</h4><p>AI rates hook strength, pacing, and retention potential before you post so you only publish your best.</p></div>
+      </div>
+      <div class="viral-card">
+        <div class="viral-icon">🔊</div>
+        <div><h4>Trend Scanner</h4><p>Real-time tracking of hot sounds, hashtags & formats on TikTok, Reels & Shorts. Ride trends at their peak.</p></div>
+      </div>
+      <div class="viral-card">
+        <div class="viral-icon">🎁</div>
+        <div><h4>Post & Earn Credits</h4><p>Top videos each week earn bonus credits. The more you create, the more you get back.</p></div>
+      </div>
+      <div class="viral-card">
+        <div class="viral-icon">🔗</div>
+        <div><h4>Referral Program</h4><p>Earn 100 credits for every friend you bring in. Both parties win. No cap on referrals.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to go<br><span class="gradient-text">viral?</span></h2>
+  <p>Join 340,000+ creators already making scroll-stopping content with FluxReel.</p>
+  <button class="btn-primary" style="font-size:17px;padding:17px 40px" onclick="scrollTo('#studio')">Generate Your First Video — Free ⚡</button>
+  <div style="margin-top:16px;font-size:13px;color:var(--text-muted)">No credit card. No editing skills. Just results.</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FluxReel</div>
+  <div style="margin-bottom:8px">Turn any idea into viral 60-second videos.</div>
+  <div>© 2026 FluxReel AI Inc. · Privacy · Terms · Contact</div>
+</footer>
+
+<script>
+// Hero progress animation
+let hp = 0, frames = ['f1','f2','f3','f4','f5'];
+function animHero() {
+  hp = (hp + 0.4) % 101;
+  document.getElementById('heroProgress').style.width = hp + '%';
+  let fi = Math.floor(hp / 20);
+  frames.forEach((f, i) => document.getElementById(f).classList.toggle('active', i <= fi));
+  setTimeout(animHero, 80);
+}
+animHero();
+
+// Smooth scroll
+function scrollTo(id) {
+  document.querySelector(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Tabs
+function setTab(btn, tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['text','hook','style'].forEach(t => {
+    let el = document.getElementById('tab-'+t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+// Style chips
+function selectStyle(el) {
+  el.closest('.style-grid, div').querySelectorAll('.style-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Generate video
+let credits = 50, generating = false;
+
+async function generateVideo() {
+  if (generating) return;
+
+  let activeTab = document.querySelector('.tab-btn.active').textContent;
+  let isHook = activeTab.includes('Hook');
+  let prompt = isHook
+    ? document.getElementById('hookInput').value.trim()
+    : document.getElementById('promptInput').value.trim();
+
+  if (!prompt) {
+    prompt = isHook
+      ? 'viral fitness tips for busy people'
+      : 'cinematic coffee shop morning scene, warm light, slow motion pour';
+  }
+
+  if (credits < 10) {
+    document.getElementById('creditsLeft').textContent = '0 credits — upgrade to continue';
+    return;
+  }
+
+  generating = true;
+  credits -= 10;
+  document.getElementById('creditsLeft').textContent = credits + ' credits remaining';
+  document.getElementById('generateBtn').disabled = true;
+  document.getElementById('generateBtn').textContent = '⏳ Generating...';
+
+  // Reset UI
+  document.getElementById('placeholder').style.display = 'none';
+  document.getElementById('outputPreview').style.display = 'none';
+  document.getElementById('actionRow').style.display = 'none';
+  document.getElementById('viralitySection').style.display = 'none';
+  let so = document.getElementById('scriptOutput');
+  if (so) { so.style.display = 'none'; so.innerHTML = ''; }
+
+  let genAnim = document.getElementById('generatingAnim');
+  genAnim.style.display = 'flex';
+
+  let steps = [
+    'Initializing AI models...', 'Processing your prompt...', 'Generating video frames...',
+    'Syncing audio layers...', 'Applying style transfer...', 'Rendering final output...', 'Almost done...'
+  ];
+  let prog = 0, stepIdx = 0;
+  let timer = setInterval(() => {
+    prog = Math.min(prog + 3, 95);
+    document.getElementById('genProgress').style.width = prog + '%';
+    if (prog > stepIdx * 14 && stepIdx < steps.length) {
+      document.getElementById('genStatus').textContent = steps[stepIdx++];
+    }
+  }, 200);
+
+  // Call Claude API
+  let systemPrompt = isHook
+    ? `You are a viral content strategist. Generate a viral hook + short script for a TikTok/Reels video about the topic given. Keep it punchy and under 100 words. Format: [HOOK]: one shocking opening line. [SCRIPT]: 3-4 short punchy sentences. [HASHTAGS]: 5 relevant hashtags. Respond in plain text only.`
+    : `You are a creative director for a 2026 AI video platform called FluxReel. The user gave you a video prompt. Respond with: [SCENE]: A vivid 1-sentence description of the generated video scene. [STYLE]: The visual style used (e.g. Cinematic 4K, Cyberpunk Neon, etc). [CAPTION]: A short viral caption (max 12 words) for TikTok. [TAGS]: 4 relevant hashtags. [VIRALITY]: A score out of 100 and one tip to improve it. Respond in plain text only.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await resp.json();
+    clearInterval(timer);
+    document.getElementById('genProgress').style.width = '100%';
+    setTimeout(() => finishGeneration(data, isHook, prompt), 400);
+  } catch (e) {
+    clearInterval(timer);
+    finishGeneration(null, isHook, prompt);
+  }
+}
+
+function finishGeneration(data, isHook, prompt) {
+  generating = false;
+  document.getElementById('generatingAnim').style.display = 'none';
+  document.getElementById('generateBtn').disabled = false;
+  document.getElementById('generateBtn').textContent = '⚡ Generate AI Video — Free';
+
+  let text = '';
+  if (data && data.content && data.content[0]) {
+    text = data.content[0].text || '';
+  }
+
+  if (isHook) {
+    // Show script output
+    let hook = extractTag(text, 'HOOK') || 'Wait — you\'re doing it wrong. Here\'s what actually works...';
+    let script = extractTag(text, 'SCRIPT') || text || 'AI-generated hook and viral script loaded successfully. Your content is ready to captivate audiences instantly.';
+    let tags = extractTag(text, 'HASHTAGS') || '#viral #trending #fyp #creator #2026';
+
+    let so = document.getElementById('scriptOutput');
+    so.innerHTML = '<div style="color:#FF2D78;font-weight:700;margin-bottom:6px">🪝 HOOK</div>' + hook +
+      '<div style="color:#A855F7;font-weight:700;margin:10px 0 6px">📜 SCRIPT</div>' + script +
+      '<div style="color:#00D4FF;font-weight:700;margin:10px 0 6px">🏷️ HASHTAGS</div>' + tags;
+    so.style.display = 'block';
+
+    // Show mock video
+    document.getElementById('videoCaption').innerHTML = '<span>HOOK:</span> ' + hook.substring(0, 60) + (hook.length > 60 ? '...' : '');
+    setTags(tags);
+    document.getElementById('outputPreview').style.display = 'block';
+    document.getElementById('actionRow').style.display = 'flex';
+
+    // No virality score for hook tab
+    document.getElementById('viralitySection').style.display = 'none';
+  } else {
+    let scene = extractTag(text, 'SCENE') || 'A stunning cinematic scene unfolds with perfect lighting and motion.';
+    let style = extractTag(text, 'STYLE') || 'Cinematic 4K';
+    let caption = extractTag(text, 'CAPTION') || 'This is going to blow up 🔥';
+    let tags = extractTag(text, 'TAGS') || '#viral #ai #trending #fyp';
+    let virality = extractTag(text, 'VIRALITY') || '82/100 — Strong hook, consider adding a text overlay.';
+
+    document.getElementById('videoCaption').innerHTML = '<span>' + style + '</span><br>' + caption;
+    setTags(tags);
+    document.getElementById('outputPreview').style.display = 'block';
+    document.getElementById('actionRow').style.display = 'flex';
+
+    // Virality score
+    let scoreMatch = virality.match(/(\d+)/);
+    let score = scoreMatch ? Math.min(parseInt(scoreMatch[1]), 100) : 78;
+    document.getElementById('viralScore').textContent = score + '/100';
+    document.getElementById('viralFill').style.width = score + '%';
+    let tip = virality.replace(/^\d+\/100[\s—–-]*/,'').trim() || 'Add a trending sound to boost reach.';
+    document.getElementById('viralTip').textContent = '💡 ' + (tip.length > 80 ? tip.substring(0,80)+'...' : tip);
+    document.getElementById('viralitySection').style.display = 'block';
+  }
+}
+
+function extractTag(text, tag) {
+  let match = text.match(new RegExp('\\[' + tag + '\\]\\s*:?\\s*([\\s\\S]*?)(?=\\[|$)', 'i'));
+  return match ? match[1].trim() : null;
+}
+
+function setTags(tagsStr) {
+  let container = document.getElementById('videoTags');
+  container.innerHTML = '';
+  tagsStr.split(/\s+/).filter(t => t.startsWith('#')).slice(0,4).forEach(t => {
+    let d = document.createElement('div');
+    d.className = 'vtag'; d.textContent = t;
+    container.appendChild(d);
+  });
+}
+
+function showExport() {
+  alert('⬇️ Export ready!\n\nIn the full FluxReel app you\'d download your video in 1080p or 4K with commercial license. Upgrade to Creator plan to unlock exports!');
+}
+
+function showSchedule() {
+  alert('📅 Auto-Schedule!\n\nIn the full FluxReel app, one click posts to TikTok, Instagram Reels & YouTube Shorts — with AI captions, hashtags, and optimal posting times. Upgrade to Creator plan!');
+}
+</script>
+</body>
+</html>
